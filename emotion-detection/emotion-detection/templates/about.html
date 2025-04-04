@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Emotion Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        nav a.active {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .about-container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .about-container h1,
+        .about-container h2 {
+            color: #333;
+        }
+
+        .about-container p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Animation -->
+    <div id="background-container"></div>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about" class="active">About</a>
+        <a href="/upload">Detect Emotion</a>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-container">
+        <h1>About This Project</h1>
+        <p>
+            This project is a Real-Time Emotion Detection system designed to recognize human emotions through facial expressions.
+            Using advanced deep learning models and face analysis tools, the system captures emotions like happiness, sadness, anger, and surprise from a live webcam or uploaded image.
+        </p>
+        <p>
+            The core motivation behind this project is to contribute to mental health awareness by understanding how people feel in real time. Based on the detected emotion, users are shown personalized motivational or uplifting messages, providing encouragement and positivity.
+        </p>
+        <p>
+            The application features a user-friendly interface and aims to bridge the gap between technology and emotional intelligence. Whether used in education, therapy, or personal development, this tool brings a thoughtful and empathetic touch to AI-powered systems.
+        </p>
+        <p>
+            We believe technology should not only be smart — it should also be kind.
+        </p>
+    </section>
+
+    <script>
+        // Background Animation
+        const images = [
+            "{{ url_for('static', filename='images/eggs.jpg') }}",
+            "{{ url_for('static', filename='images/child.jpg') }}",
+            "{{ url_for('static', filename='images/eggs.jpg') }}",
+            "{{ url_for('static', filename='images/child.jpg') }}"
+        ];
+
+        let index = 0;
+        function changeBackground() {
+            document.getElementById("background-container").style.backgroundImage = `url('${images[index]}')`;
+            index = (index + 1) % images.length;
+        }
+        setInterval(changeBackground, 5000);
+        changeBackground();
+
+        // GSAP Animation for Smooth Entry
+        gsap.from(".about-container", { opacity: 0, y: 50, duration: 1, ease: "power2.out" });
+    </script>
+
+</body>
+</html>
+

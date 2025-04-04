@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emotion Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    nav {
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .box-button {
+      width: 80px;
+      height: 40px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
+    }
+
+    .box-button:active {
+      transform: scale(0.95);
+    }
+
+    .start {
+      background-color: #28a745;
+    }
+
+    .stop {
+      background-color: #dc3545;
+    }
+
+    #video-container {
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/upload">Upload Image</a>
+  </nav>
+
+  <h1>Real-Time Emotion Detection</h1>
+
+  <!-- Start/Stop Buttons -->
+  <div class="button-container">
+    <button class="box-button start" onclick="startDetection()">Start</button>
+    <button class="box-button stop" onclick="stopDetection()">Stop</button>
+  </div>
+
+  <!-- Video Feed -->
+  <div id="video-container">
+    <img id="video-feed" src="{{ url_for('video_feed') }}" width="640px">
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function startDetection() {
+      document.getElementById("video-container").style.display = "block";
+      document.getElementById("video-feed").src = "{{ url_for('video_feed') }}";
+    }
+
+    function stopDetection() {
+      document.getElementById("video-container").style.display = "none";
+      document.getElementById("video-feed").src = "";
+      fetch('/stop_video');
+    }
+  </script>
+
+</body>
+</html>
